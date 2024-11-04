@@ -10,7 +10,7 @@ let config = {
       },
     },
     scene: {
-      preload:preload,
+      preload: preload,
       create: create,
       update: update,
     },
@@ -32,21 +32,21 @@ let config = {
   let game = new Phaser.Game(config);
   
   function preload() {
-    this.load.image("background","assets/GameObjects/background-day.png");
-    this.load.image("character1","assets/GameObjects/yellowbird-midflap.png");
-    this.load.image("character2","assets/GameObjects/yellowbird-downflap.png");
-    this.load.image("character3","assets/GameObjects/yellowbird-upflap.png");
-    this.load.image("pillar","assets/GameObjects/pipe-green.png");
-    this.load.image("base","assets/GameObjects/base.png");
+    this.load.image("background","assets/sprites/background-day.png");
+    this.load.image("character1","assets/sprites/yellowbird-midflap.png");
+    this.load.image("character2","assets/sprites/yellowbird-downflap.png");
+    this.load.image("character3","assets/sprites/yellowbird-upflap.png");
+    this.load.image("pillar","assets/sprites/pipe-green.png");
+    this.load.image("base","assets/sprites/base.png");
     this.load.image("gameover","assets/UI/gameover.png");
     this.load.image("score","assets/UI/score.png");
     this.load.image("retry","assets/UI/retry.png");
     this.load.image("startGame","assets/UI/message.png");
-    this.load.image('cursor', 'assets/drawcursor.png');
-    this.load.audio("score","assets/SoundEfects/point.wav");
-    this.load.audio("hit","assets/SoundEfects/hit.wav");
-    this.load.audio("wing","assets/SoundEfects/wing.wav");
-    this.load.audio("die","assets/SoundEfects/die.wav");
+    this.load.image('cursor', 'assets/sprites/drawcursor.png');
+    this.load.audio("score","assets/sfx/point.wav");
+    this.load.audio("hit","assets/sfx/hit.wav");
+    this.load.audio("wing","assets/sfx/wing.wav");
+    this.load.audio("die","assets/sfx/die.wav");
   }
   
   function create() {
@@ -88,21 +88,13 @@ let config = {
       scoreText.setDepth(1);
   
       //sons aqui embaixo
-  
-      /*this.input.on("pointerdown",function(pointer){
-        if(!isRefresh && !isGameOver) {
-          character.setVelocityY(-230);
-        }
-        isRefresh=false;
-      },this);*/
 
       var cursor = this.add.image(0, 0, 'cursor').setVisible(false);
       this.input.on('pointermove', function (pointer)
       {
-          cursor.setVisible(false).setPosition(pointer.x, pointer.y);
+          cursor.setPosition(pointer.x, pointer.y);
   
-          this.physics.moveToObject(character, pointer, 240);
-  
+          if(!isGameOver) this.physics.moveToObject(character, pointer, 210);
       }, this);
     },this);
   }
@@ -161,6 +153,7 @@ let config = {
     base.body.enable = false;
     character.setVelocityX(0);
     character.setVelocityY(0);
+    character.setDepth(0);
     character.body.allowGravity = false;
     [this.upperPillars,this.lowerPillars].forEach(group=>group.children.iterate(pillar=>pillar.body.velocity.x=0));
     isGameOver = true;
