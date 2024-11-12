@@ -61,7 +61,7 @@ function preload() {
   this.load.image("base", "assets/sprites/base.png");
   this.load.image("gameover", "assets/UI/gameover.png");
   this.load.image("score", "assets/UI/score.png");
-  this.load.image("retry", "assets/UI/replay.png");
+  this.load.image("retry", "assets/UI/Replay.png");
   this.load.image("startGame", "assets/UI/telainicial.png");
   this.load.image('cursor', 'assets/sprites/drawcursor.png');
   this.load.audio("simplePoint", "assets/sfx/positive.ogg");
